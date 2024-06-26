@@ -6,6 +6,7 @@ import RegisterImg from "../../../../assets/images/regBackground.jpg";
 import { ChangeEvent, FormEvent, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Logo from "../../../../assets/images/logo2.png"
 
 interface UserRegister {
   fullName: string;
@@ -72,12 +73,11 @@ const Register = () => {
         ></div>
         <div className="registerDetails">
           <Link to="/" className="logo">
-            <Icon.Cart />
-            Ritchy Stores
+            <img src={Logo} alt="" />
           </Link>
           <div className="loginHeader">
-            <h3>Sign In</h3>
-            <p>Get access to your account</p>
+            <h3>Create Account</h3>
+            <p>Get started to shop without limit</p>
           </div>
           <Button
             Icon={() => <Icon.Google style={{ color: "red" }} />}

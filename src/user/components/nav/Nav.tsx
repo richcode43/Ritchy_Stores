@@ -15,10 +15,9 @@ const Nav = () => {
   const location = useLocation();
 
   const hiddenNav = [
-    "/login",
-    "/signup",
-    "/forgetpass",
-    "/resetpass",
+    "/auth/login",
+    "/auth/signup",
+    "/auth/forgetpass",
     "/admin",
   ];
 

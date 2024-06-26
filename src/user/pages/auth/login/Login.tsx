@@ -5,6 +5,7 @@ import * as Icon from "react-bootstrap-icons";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Logo from "../../../../assets/images/logo2.png";
 
 interface UserLogin {
   email: string;
@@ -26,8 +27,11 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-    //   const response = await axios.post(`${BASE_URL2}/users/login`, loginData);
-    const response = await axios.post("https://ecommerce-backend-cxlj.onrender.com/api/v1/users/login", loginData);
+      //   const response = await axios.post(`${BASE_URL2}/users/login`, loginData);
+      const response = await axios.post(
+        "https://ecommerce-backend-cxlj.onrender.com/api/v1/users/login",
+        loginData
+      );
       console.log(response.data.token);
       setLoading(false);
       // save token
@@ -47,14 +51,13 @@ const Login = () => {
   return (
     <>
       <div className="loginPage">
+        <Link to="/" className="logo">
+          <img src={Logo} alt="" />
+        </Link>
         <div className="loginDetails">
-          <Link to="/" className="logo">
-            <Icon.Cart />
-            Ritchy Stores
-          </Link>
           <div className="loginHeader">
             <h3>Sign In</h3>
-            <p>Get access to your account</p>
+            <p>Welcome back</p>
           </div>
           <Button
             Icon={() => <Icon.Google style={{ color: "red" }} />}
@@ -97,7 +100,7 @@ const Login = () => {
                   placeholder="Enter your email address"
                   id="email"
                   value={loginData.email}
-                  onChange={handleInputChange }
+                  onChange={handleInputChange}
                 />
                 <Icon.PersonFill
                   style={{ color: "black" }}
@@ -116,7 +119,7 @@ const Login = () => {
                   placeholder="Enter your email address"
                   id="email"
                   value={loginData.password}
-                  onChange={handleInputChange }
+                  onChange={handleInputChange}
                 />
                 <Icon.KeyFill
                   style={{ rotate: "140deg" }}
