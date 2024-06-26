@@ -156,7 +156,7 @@ const Nav = () => {
                 <Icon.Person className="user-icon" />
                 <ul className="profileDetails">
                   <li>
-                    <Link to="/login">
+                    <Link to="/auth/login">
                       <CiUser />
                       <span>Login</span>
                     </Link>

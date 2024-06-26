@@ -127,7 +127,7 @@ const Login = () => {
             </div>
             <div className="forgotPass">
               <Link
-                to="/forgetpass"
+                to="/auth/forgetpass"
                 style={{ color: "rgb(56, 116, 255)", fontFamily: "" }}
               >
                 Forgot Password?
@@ -152,7 +152,7 @@ const Login = () => {
           >
             Don't have an account yet?
             <Link
-              to="/signup"
+              to="/auth/signup"
               style={{ color: "rgb(56, 116, 255)", marginLeft: "10px" }}
             >
               Sign Up

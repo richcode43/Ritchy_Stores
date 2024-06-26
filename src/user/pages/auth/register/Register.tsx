@@ -196,7 +196,7 @@ const Register = () => {
             }}
           >
             <Link
-              to="/login"
+              to="/auth/login"
               style={{ color: "rgb(56, 116, 255)", marginRight: "5px" }}
             >
               Login
