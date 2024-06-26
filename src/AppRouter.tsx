@@ -7,7 +7,6 @@ import Shop from "./user/pages/shop/Shop";
 import ForgetPassword from "./user/pages/auth/forgetpassword/ForgetPassword";
 import Login from "./user/pages/auth/login/Login";
 import Register from "./user/pages/auth/register/Register";
-import ResetPassword from "./user/pages/auth/resetpassword/ResetPassword";
 
 // logged in userprofile imports
 import Profile from "./user/pages/profile/Profile";
@@ -32,7 +31,6 @@ const AppRouter = () => {
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/signup" element={<Register />} />
           <Route path="/auth/forgetpass" element={<ForgetPassword />} />
-          <Route path="/auth/resetpass" element={<ResetPassword />} />
         </Route>
 
         <Route path="/profile">
