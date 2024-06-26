@@ -9,16 +9,6 @@ import Login from "./user/pages/auth/login/Login";
 import Register from "./user/pages/auth/register/Register";
 import ResetPassword from "./user/pages/auth/resetpassword/ResetPassword";
 
-// import Nav from "./User/components/nav/Nav";
-// import Home from "./User/pages/homepage/Home";
-// import Top from "./User/components/topnav/Top";
-// import Shop from "./User/pages/shop/Shop";
-// import Product from "./User/pages/singleProduct/Product";
-// import CartPage from "./User/pages/cart/Cart";
-// import Wishlist from "./User/pages/wishlist/Wishlist";
-// import Dashboard from "./Admin/pages/dashboard/Dashboard";
-// import About from "./User/pages/about/About"
-
 // logged in userprofile imports
 import Profile from "./user/pages/profile/Profile";
 import Inbox from "./user/pages/inbox/Inbox";
@@ -39,10 +29,10 @@ const AppRouter = () => {
           <Route path="/" element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/forgetpass" element={<ForgetPassword />} />
-          <Route path="/resetpass" element={<ResetPassword />} />
+          <Route path="/auth/login" element={<Login />} />
+          <Route path="/auth/signup" element={<Register />} />
+          <Route path="/auth/forgetpass" element={<ForgetPassword />} />
+          <Route path="/auth/resetpass" element={<ResetPassword />} />
         </Route>
 
         <Route path="/profile">
