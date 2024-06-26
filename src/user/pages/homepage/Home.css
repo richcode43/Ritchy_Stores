@@ -1,0 +1,28 @@
+.hero {
+    padding: 0px 160px;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 20px;
+  }
+  .hero-inner {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-columns: auto;
+    grid-auto-rows: 400;
+    grid-gap: 20px;
+    padding-top: 30px;
+    height: 400px;
+  }
+  .hero-inner > div {
+    background-color: #ebebeb;
+    /* padding: 20px; */
+    border-radius: 10px;
+    display: flex;
+  }
+  .hero-inner > .hero-img1 {
+    grid-area: 1 / 1 / span 2 / span 2;
+  }
+  .hero-img1 img {
+    border-radius: inherit;
+  }
+  

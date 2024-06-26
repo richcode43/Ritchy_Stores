@@ -1,0 +1,96 @@
+.footerSection{
+    background-color: #f0f3f2;
+    padding: 50px 100px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.siteInfo{
+    display: flex;
+    gap: 100px;
+    margin-bottom: 50px;
+}
+.siteInfo a{
+    display: flex;
+    color: #5c6c75;
+    margin-bottom: 10px;
+}
+.siteInfo a:hover{
+    text-decoration: underline;
+}
+.siteTitle p{
+    color: #5c6c75;
+    font-size: 14px;
+    margin-top: 10px;
+    word-spacing: 1px;
+    font-weight: lighter;
+}
+h5{
+    margin-bottom: 10px;
+}
+.siteTitle{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: sb;
+    font-weight: bold;
+}
+.site-detail{
+    display: flex;
+    gap: 100px;
+    width: 80%;
+}
+.site-detail a{
+    font-size: 14px;
+}
+.payments{
+    padding: 1rem 0;
+    border-top: 1px solid #dfe2e1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+.payment-partners > ul{
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 15px;
+    font-size: 14px;
+}
+.payment-partners > ul li{
+    display: flex;
+    align-items: center;
+}
+.mobileApps ul{
+    display: flex;
+    list-style: none;
+    align-items: center;
+    gap: 15px;
+}
+.footer-bottom{
+    display: flex;
+    justify-content: space-between;
+    color: #959a98;
+    padding: 1rem 0;
+    border-top: 1px solid #dfe2e1;
+}
+.copyright{
+    font-size: 14px;
+}
+.socialHandles ul{
+    list-style: none;
+    display: flex;
+    font-size: 13px;
+    align-items: center;
+    gap: 10px;
+}
+.btn-social{
+    border: 1px solid #889397;
+    border-radius: 8px;
+    height: 1.8rem;
+    width: 1.8rem;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

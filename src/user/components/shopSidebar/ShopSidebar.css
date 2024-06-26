@@ -1,0 +1,70 @@
+.shop-sidebar {
+    width: 15%;
+    height: 100vh;
+    /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
+    /* background-color: #eeebebf0; */
+    /* padding: 20px 20px; */
+    position: sticky;
+    border-right: 1px solid rgb(233, 231, 231);
+    top: 0px;
+  }
+  .shop-sidebar-inner {
+    overflow-y: scroll;
+  }
+  .category-info, .brand-info{
+    border-bottom: .0625rem solid rgb(233, 231, 231);
+    min-width: 12.5rem;
+    padding: 1rem .625rem .625rem;
+  }
+  .category-header, .brand-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 15px;
+    font-size: 13px;
+  }
+  .sidebar-search {
+    padding: 10px ;
+  }
+  .sidebar-search > input {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    color: #000;
+    font-size: 14px;
+    height: 43px;
+    padding: 2px 55px 2px 18px;
+    position: relative;
+    outline: 0;
+    /* margin: 10px; */
+  }
+  .sidebar-search > button {
+    background: transparent none repeat scroll 0 0;
+    border: #a1a5aa;
+    border-image: none;
+    border-left: 1px solid rgb(233, 231, 231);
+    color: #000;
+    cursor: pointer;
+    font-size: 20px;
+    padding: 0 15px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    transition: all 0.3s ease 0s;
+  }
+  .shop-sidebar-inner .category-list {
+    list-style: none;
+  }
+  .shop-sidebar-inner .category-list li {
+    padding: 10px 20px;
+  }
+  .category-list li:hover{
+  background-color:rgb(233, 231, 231);
+  }
+  .category-list li a {
+    color: #000;
+    font-size: 15px;
+    text-transform: capitalize;
+    padding: 5px;
+  }
