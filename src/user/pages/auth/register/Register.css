@@ -30,7 +30,6 @@
 .registerDetails .logo img{
     height: 100px;
     width: 150px;
-    color: red;
 }
 .pass-container{
     display: flex;
