@@ -1,0 +1,14 @@
+
+.adminSideBar{
+    background-color: whitesmoke;
+    width: 250px;
+    height: 100vh;
+}
+
+.admin-title{
+    padding: 25px 0;
+}
+.logo-div > img{
+    width: 60px;
+    height: 35px;
+}

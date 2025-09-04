@@ -1,8 +1,9 @@
 import "./UserSidebar.css"
 import { Link } from "react-router-dom"
 import * as Icon from "react-bootstrap-icons";
-
+import {useLogout } from "../../../utils/logout"
 const UserSideBar = () => {
+    const handleLogout = useLogout();
   return (
     <>
     <div className="userSideBar">
@@ -13,8 +14,8 @@ const UserSideBar = () => {
                 Dashboard
                 </Link>
             </li>
-            <li className="sidebar-list-item">
-                <Link to="/profile/orders">
+            <li className="sidebar-list-item ">
+                <Link to="/profile/orders" className="">
                     <Icon.BagCheck/>
                     Orders
                 </Link>
@@ -48,8 +49,9 @@ const UserSideBar = () => {
             <li className="sidebar-list-item">
                 <Link to="#">
                     <Icon.BoxArrowRight/>
-                    Logout
+                    <button onClick={handleLogout}>logout</button>
                 </Link> 
+                
             </li>
         </ul>
     </div>

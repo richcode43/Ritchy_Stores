@@ -1,0 +1,27 @@
+
+.brand-info{
+    border-bottom: .0625rem solid rgb(233, 231, 231);
+    min-width: 12.5rem;
+    padding: 1rem .625rem .625rem;
+}
+.brand-header{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 15px;
+    font-size: 13px;
+}
+.brand-list {
+    list-style: none;
+  }
+  .brand-list li {
+    padding: 10px 30px;
+  }
+  .brand-list li:hover{
+  background-color:rgb(233, 231, 231);
+  }
+  .brand-list li a {
+    color: #000;
+    font-size: 15px;
+    text-transform: capitalize;
+    padding: 5px;
+  }

@@ -2,21 +2,26 @@ import { useState, useEffect } from 'react'
 import "./ShopSidebar.css";
 import axios from 'axios';
 import { BASE_URL } from '../constants/BASEURL';
-import { FiMinus, FiPlus } from 'react-icons/fi';
+import { FiPlus } from 'react-icons/fi';
+import Brand from '../brands/Brand';
+import Colors from '../colors/Colors';
 
-
+interface Icategories{
+  id: number;
+  name: string;
+}
 const ShopSidebar = () => {
-    const [category, setCategory] = useState<string[]>([])
+    const [category, setCategory] = useState<Icategories[]>([])
 
     useEffect(() => {
 
         const fetchCategories = async () => {
 
             try{
-                const response = await axios.get(`${BASE_URL}/products/categories`)
+                const response = await axios.get(`${BASE_URL}/categories/`)
                 console.log(response.data);
 
-                const categoryData: string[] = response.data;
+                const categoryData: Icategories[] = response.data.categories;
                 setCategory(categoryData);
             }
             catch(error) {
@@ -46,23 +51,18 @@ const ShopSidebar = () => {
 
             {/* category loop */}
             {category.map((category) =>(
-            <ul className="category-list" key={category}>
+            <ul className="category-list" key={category.id}>
               <li>
-                <a href="#">{category}</a>
+                <a href="#">{category.name}</a>
               </li>
             </ul>
             ))}
           </div>
 
           {/* brand list */}
-          <div className="brand-info">
-            <div className="brand-header">
-              <h3>BRANDS</h3>
-              <div>
-                <FiMinus />
-              </div>
-            </div>
-          </div>
+          <Brand/>
+          {/* color list */}
+          <Colors/>
         </div>
       </div>
     </>

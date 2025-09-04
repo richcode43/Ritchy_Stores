@@ -19,6 +19,7 @@ const ForgetPassword = () => {
             <input type="email" placeholder="Enter your Email address" />
             <Button
               label="Send"
+              
               Icon={() => <Icon.SendFill />}
               className="flex items-center justify-center p-2.5 gap-2"
               backgroundColor="#3874ff"

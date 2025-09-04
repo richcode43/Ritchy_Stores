@@ -6,7 +6,7 @@
     background-color: white;
     gap: 20px;
     position: sticky;
-    padding: 0 3rem;
+    padding: 0 1rem;
 }
 .addressDetails{
     padding: 3.5rem;
@@ -27,7 +27,6 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     margin-top: 50px;
-    /* width: 60%; */
 }
 .address-cards {
     border: 1px solid #dfe2e1;

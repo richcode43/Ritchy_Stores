@@ -1,51 +1,64 @@
-import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "../../../components/button/Button";
 import * as Icon from "react-bootstrap-icons";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { toast } from "react-toastify";
-import axios from "axios";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios, { AxiosError } from "axios";
 import Logo from "../../../../assets/images/logo2.png";
+import { BASE_URL2 } from "../../../components/constants/BASEURL";
+import { User, useAuth } from "../../../../context/authContext";
 
-interface UserLogin {
-  email: string;
-  password: string;
-}
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(4).max(12),
+});
+
+type FormFields = z.infer<typeof schema>;
+
 const Login = () => {
+  const { setUser } = useAuth();
   const navigate = useNavigate();
-  const [loginData, setLoginData] = useState<UserLogin>({
-    email: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<FormFields>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: zodResolver(schema),
   });
-  const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setLoginData((prevData) => ({ ...prevData, [name]: value }));
-  };
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  const onSubmit: SubmitHandler<FormFields> = async (data: FormFields) => {
     try {
-      //   const response = await axios.post(`${BASE_URL2}/users/login`, loginData);
-      const response = await axios.post(
-        "https://ecommerce-backend-cxlj.onrender.com/api/v1/users/login",
-        loginData
-      );
-      console.log(response.data.token);
-      setLoading(false);
-      // save token
-      localStorage.setItem("auth-token", response.data.token);
-      // redirect to dashboard
+      const response = await axios.post(`${BASE_URL2}/users/login`, data, {});
+      console.log(response);
+      console.log("login succesfull");
 
+      // save token
+      // localStorage.setItem("auth-token", (response).data.token);
+      // localStorage.setItem("fullName", (response).data.userFound.fullName);
+      const user_data: User = {
+        fullName: response.data.userFound.fullName,
+        email: response.data.userFound.email,
+        isLoggedIn: true,
+        token: response.data.token,
+      };
+      setUser(user_data);
+      localStorage.setItem("auth_state", JSON.stringify(user_data));
       // toast
-      toast.success("Used logged in successfully", {
-        onClose: () => navigate("/dashboard"),
+      toast.success("User logged in successfully", {
+        // redirect to home page
+        onClose: () => navigate("/"),
       });
     } catch (error) {
-      console.log(`Error in login ${error}`);
-      toast.error("Login failed, invalid email or password");
-      setLoading(false);
+      const err = error as AxiosError<{ message: string }>;
+      toast.error(err.response?.data.message);
     }
   };
   return (
@@ -77,7 +90,6 @@ const Login = () => {
               gap: ".5rem",
             }}
           />
-
           <div className="Divider">
             <hr
               style={{
@@ -89,45 +101,52 @@ const Login = () => {
             <div className="divider-content-center">or</div>
           </div>
 
-          <form onSubmit={handleSubmit}>
+          <ToastContainer />
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-holder">
               <label htmlFor="email" className="form-label">
-                Email Address{" "}
+                Email Address
               </label>
               <div className="form-input-icon">
+                {/* email input */}
                 <input
+                  {...register("email")}
                   type="email"
                   placeholder="Enter your email address"
                   id="email"
-                  value={loginData.email}
-                  onChange={handleInputChange}
                 />
                 <Icon.PersonFill
                   style={{ color: "black" }}
                   className="form-icon"
                 />
               </div>
-              <p className="login-error-message">Invalid email address</p>
+              {errors.email && (
+                <div className="text-red-500">{errors.email.message}</div>
+              )}
             </div>
+
             <div className="input-holder">
               <label htmlFor="email" className="form-label">
-                Password{" "}
+                Password
               </label>
               <div className="form-input-icon">
+                {/* password input */}
                 <input
+                  {...register("password")}
                   type="password"
-                  placeholder="Enter your email address"
+                  placeholder="Enter your password"
                   id="email"
-                  value={loginData.password}
-                  onChange={handleInputChange}
                 />
                 <Icon.KeyFill
                   style={{ rotate: "140deg" }}
                   className="form-icon"
                 />
               </div>
-              <p className="login-error-message">Incorrect password </p>
+              {errors.password && (
+                <div className="text-red-500">{errors.password.message}</div>
+              )}
             </div>
+
             <div className="forgotPass">
               <Link
                 to="/auth/forgetpass"
@@ -136,13 +155,14 @@ const Login = () => {
                 Forgot Password?
               </Link>
             </div>
+
             <Button
-              label={loading ? "loading..." : "Login"}
-              backgroundColor="#3874ff"
+              disabled={isSubmitting}
+              className="bg-custom-blue disabled:!bg-slate-400"
+              label={isSubmitting ? "loading..." : "login"}
               color="white"
               border="none"
               borderRadius="5px"
-              disabled={loading}
               style={{ width: "100%", padding: "15px", fontSize: "15px" }}
             />
           </form>

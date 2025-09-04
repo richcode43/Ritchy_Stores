@@ -1,68 +1,64 @@
-import { Link } from "react-router-dom";
-import * as Icon from "react-bootstrap-icons";
 import "./Register.css";
+import * as Icon from "react-bootstrap-icons";
 import Button from "../../../components/button/Button";
+import Logo from "../../../../assets/images/logo2.png";
 import RegisterImg from "../../../../assets/images/regBackground.jpg";
-import { ChangeEvent, FormEvent, useState } from "react";
-import axios from "axios";
-import Swal from "sweetalert2";
-import Logo from "../../../../assets/images/logo2.png"
+import { Link, useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import axios, { AxiosError } from "axios";
 
-interface UserRegister {
-  fullName: string;
-  password: string;
-  email: string;
-}
-const Register = () => {
-  const [registerdata, setRegisterData] = useState<UserRegister>({
-    fullName: "",
-    password: "",
-    email: "",
+import { z } from "zod";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { BASE_URL2 } from "../../../components/constants/BASEURL";
+
+const schema = z
+  .object({
+    fullName: z.string().min(4).max(25).trim(),
+    email: z.string().email(),
+    password: z.string().min(4).max(12),
+    // rememberMe: z.boolean(),
+    passwordConfirm: z.string().min(4).max(12),
+  })
+  .refine((data) => data.password === data.passwordConfirm, {
+    message: "Passwords do not match",
+    path: ["passwordConfirm"],
   });
-  const [loading, setLoading] = useState(false);
 
-  const onInputChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+type RegisterFields = z.infer<typeof schema>;
+
+const Register = () => {
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFields>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<RegisterFields> = async (
+    data: RegisterFields
   ) => {
-    const { name, value } = e.target;
-    console.log(registerdata);
-    setRegisterData((prevRegisterData) => ({
-      ...prevRegisterData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    // console.log(registerdata);
     try {
-      const response = await axios.post(
-        // `${BASE_URL2}/users/register`,
-        "https://ecommerce-backend-cxlj.onrender.com/api/v1/users/register/",
-        registerdata
-      );
-      console.log("response", response.data);
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: response.data.message,
-        showConfirmButton: false,
-        timer: 1000,
+      const response = axios.post(`${BASE_URL2}/users/register`, data);
+      console.log("Registration successful:", response);
+
+      // toast
+      toast.success("Registration successful", {
+        // redirect to home page
+        onClose: () => navigate("/auth/login"),
+        
       });
     } catch (error) {
-      console.log();
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong! Try again later",
-      });
-    } finally {
-      setLoading(false);
+      const err = error as AxiosError<{ message: string }>;
+      toast.error(err.response?.data.message);
     }
   };
+
   return (
     <>
+      <ToastContainer />
       <div className="registerPage">
         <div
           className="register-img"
@@ -99,71 +95,81 @@ const Register = () => {
           />
 
           {/* register form */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="input-holder">
               <label htmlFor="fullname" className="form-label">
                 FullName
               </label>
               <div className="form-input-icon">
+                {/* fullname input */}
                 <input
+                  {...register("fullName")}
                   type="text"
-                  placeholder="Enter full name"
+                  placeholder="Enter full Name"
                   id="fullname"
-                  value={registerdata.fullName}
-                  onChange={onInputChange}
                 />
                 <Icon.PersonFill
                   style={{ color: "black" }}
                   className="form-icon"
                 />
               </div>
-              <p className="reg-error-message">Invalid email address</p>
+              {errors.fullName && (
+                <div className="text-red-500">{errors.fullName.message}</div>
+              )}
             </div>
+
             <div className="input-holder">
               <label htmlFor="email" className="form-label">
                 Email Address
               </label>
               <div className="form-input-icon">
+                {/* email input */}
                 <input
+                  {...register("email")}
                   type="email"
-                  placeholder="Enter your email address"
+                  placeholder="Enter email address"
                   id="email"
-                  value={registerdata.email}
-                  onChange={onInputChange}
                 />
                 <Icon.PersonFill
                   style={{ color: "black" }}
                   className="form-icon"
                 />
               </div>
-              <p className="reg-error-message">Invalid email address</p>
+              {errors.email && (
+                <div className="text-red-500">{errors.email.message}</div>
+              )}
             </div>
+
             <div className="input-holder pass-container">
               <div>
                 <label htmlFor="password" className="form-label">
                   Password
                 </label>
                 <div className="form-input-icon">
+                  {/* password input */}
                   <input
+                    {...register("password")}
                     type="password"
                     placeholder="Enter password"
                     id="passowrd"
-                    value={registerdata.password}
-                    onChange={onInputChange}
                   />
                   <Icon.KeyFill
                     style={{ rotate: "140deg" }}
                     className="form-icon"
                   />
                 </div>
-                <p className="reg-error-message">Incorrect password </p>
+                {errors.password && (
+                  <div className="text-red-500">{errors.password.message}</div>
+                )}
               </div>
               <div>
                 <label htmlFor="confirmpassword" className="form-label">
                   Confirm Password{" "}
                 </label>
                 <div className="form-input-icon">
+                  {/* confirmpassword input */}
                   <input
+                    {...register("passwordConfirm")}
                     type="password"
                     placeholder="confirm password"
                     id="confirmpassword"
@@ -173,14 +179,16 @@ const Register = () => {
                     className="form-icon"
                   />
                 </div>
-                <p className="reg-error-message">Incorrect password </p>
+                {errors.passwordConfirm && (
+                  <div className="text-red-500">{errors.passwordConfirm.message}</div>
+                )}
               </div>
             </div>
 
             <Button
-              disabled={loading}
-              label={loading ? "Registering..." : "Register"}
-              backgroundColor="#3874ff"
+              disabled={isSubmitting}
+              label={isSubmitting ? "Registering..." : "Register"}
+              className="bg-custom-blue disabled:!bg-slate-400"
               color="white"
               type="submit"
               border="none"

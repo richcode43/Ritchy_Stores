@@ -122,14 +122,7 @@ form{
     outline: 0;
     box-shadow: 0 0 0 3px rgba(0, 123, 255, .5);
 }
-.login-error-message{
-    color: red;
-    font-size: 12px;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-weight: 700;
-    margin: 5px 0;
-    display: none;
-}
+
 .form-icon{
     position: absolute;
     top: 12px;

@@ -1,5 +1,4 @@
 import "./Shop.css";
-import Background from "../../../assets/images/regBackground.jpg";
 import { IoMdHeartEmpty } from "react-icons/io";
 import Button from "../../components/button/Button";
 import { useEffect, useState } from "react";
@@ -9,24 +8,36 @@ import { Link } from "react-router-dom";
 import * as Icon from "react-bootstrap-icons";
 import { BASE_URL } from "../../components/constants/BASEURL";
 import Footer from "../../components/footer/Footer";
+import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
+import { resolveResponse } from "../../../utils";
+import sneakers from "../../../assets/images/sneakers.png"
 
+// interface Iproducts {
+//   id: number;
+//   name: string;
+//   title: string;
+//   price: number;
+//   image: string;
+// }
 
-interface Iproducts {
-  id: number;
-  title: string;
-  price: number;
-  image: string;
+interface ApiResponse {
+  products: {
+    id: number;
+    name: string;
+    title: string;
+    price: number;
+    image: string;
+  }[];
 }
+
 const Shop = () => {
-  const [products, setProducts] = useState<Iproducts[]>([]);
+  const [products, setProducts] = useState<ApiResponse | null>(null);
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/products`);
-        console.log(response.data);
-
-        const productData: Iproducts[] = response.data;
-        setProducts(productData);
+        const result = resolveResponse<ApiResponse>(response.data);
+        setProducts(result);
       } catch (error) {
         console.log(error);
       }
@@ -37,26 +48,15 @@ const Shop = () => {
   return (
     <>
       <div className="shopPage">
-        <div className="breadCrumbs">hhhhh</div>
+        <Breadcrumb/>
         <div className="shopPage-inner">
           <ShopSidebar />
           <div className="main-content">
-            <div
-              className="category-title"
-              style={{
-                backgroundImage: `url(${Background})`,
-                backgroundPosition: "center",
-              }}
-            >
-              <Link to="/">Home</Link>
-              <span>/</span>
-              <label htmlFor="">Shop</label>
-            </div>
             <div className="mainContent-inner">
               <div className="shop-header">
                 <div className="productResults">
                   <p>
-                    Showing <span>{products.length} </span> products
+                    Showing <span>{products?.products.length} </span> products
                   </p>
                 </div>
                 <div className="sort-details">
@@ -96,7 +96,7 @@ const Shop = () => {
               {/* product grid */}
               <div className="products">
                 {/* product */}
-                {products.map((product) => (
+                {products?.products.map((product) => (
                   <div className="card product-card" key={product.id}>
                     <div className="card-image">
                       <button className="btn-wishlist">
@@ -104,16 +104,17 @@ const Shop = () => {
                       </button>
                       <Link to={`/product/${product.id}`}>
                         <img
-                          src={product.image}
+                          // src={product.image}
+                          src={sneakers}
                           className="productImg"
                           alt="product"
                         />
                       </Link>
                     </div>
                     <div className="card-body">
-                      <a href="#" className="product-meta">
-                        Sneakers
-                      </a>
+                      <Link to={`/product/${product.id}`} className="product-meta">
+                        {product.name}
+                      </Link>
                       <h3 className="product-title">
                         <Link to={`/product/${product.id}`}>
                           {product.title}
