@@ -39,6 +39,7 @@ const AppRouter = () => {
         <Route path="/">
           <Route path="/" index element={<Home />} />
           <Route path="/shop" element={<Shop />} />
+          <Route path="/admin" element={<Dashboard/>}/>
           <Route path="/product/:id" element={<Product />} />
           <Route path="/auth/login" element={<Login />} />
           <Route path="/auth/login2" element={<Login2 />} />
@@ -64,9 +65,9 @@ const AppRouter = () => {
           <Route path="inbox" element={<Inbox />} />
         </Route>
 
-        <Route path="/admin">
+        {/* <Route path="/admin">
           <Route index element={<Dashboard />} />
-        </Route>
+        </Route> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
