@@ -10,7 +10,6 @@ import { BASE_URL } from "../../components/constants/BASEURL";
 import BeatLoader from "react-spinners/BeatLoader";
 import * as Icon from "react-bootstrap-icons";
 import Button from "../../components/button/Button";
-// import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 import { resolveResponse } from "../../../utils";
 
@@ -259,17 +258,6 @@ const Product = () => {
           
           {/* product informations */}
           
-          {/* <section>
-          <Tabs defaultValue="account" className="w-full">
-            <TabsList className="">
-              <TabsTrigger value="account" className="rounded-none border-b-[3px]">Account</TabsTrigger>
-              <TabsTrigger value="password">Password</TabsTrigger>
-            </TabsList>
-            <TabsContent value="account">Make changes to your account here.</TabsContent>
-            <TabsContent value="password">Change your password here.</TabsContent>
-          </Tabs>
-
-          </section> */}
           <section>
 
 
