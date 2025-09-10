@@ -36,7 +36,7 @@ const AppRouter = () => {
     <Router>
       <Nav />
       <Routes>
-        <Route path="/">
+        {/* <Route path="/"> */}
           <Route path="/" index element={<Home />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/admin" element={<Dashboard/>}/>
@@ -46,7 +46,7 @@ const AppRouter = () => {
           <Route path="/auth/signup" element={<Register />} />
           <Route path="/auth/register2" element={<Register2 />} />
           <Route path="/auth/forgetpass" element={<ForgetPassword />} />
-        </Route>
+        {/* </Route> */}
 
         <Route path="/profile">
           <Route
